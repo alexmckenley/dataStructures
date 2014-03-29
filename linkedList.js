@@ -35,7 +35,6 @@ LinkedList.prototype.addToTail = function(val){
     this.tail = node;
     return node;
   }
-  console.log("tail: ", this.tail);
   node.prev = this.tail;
   this.tail.next = node;
   this.tail = node;
@@ -48,12 +47,12 @@ LinkedList.prototype.removeFromHead = function(){
   }
   this.size -= 1;
   if(this.tail === this.head){
-    return removeLastNode();
+    return this.removeLastNode().value;
   }
   var temp = this.head;
   this.head = temp.next;
   this.head.prev = null;
-  return temp;
+  return temp.value;
 }
 
 LinkedList.prototype.removeFromTail = function(){
@@ -62,12 +61,12 @@ LinkedList.prototype.removeFromTail = function(){
   }
   this.size -= 1;
   if(this.tail === this.head){
-    return removeLastNode();
+    return this.removeLastNode().value;
   }
   var temp = this.tail;
   this.tail = this.tail.prev;
   this.tail.next = null;
-  return temp;
+  return temp.value;
 }
 
 LinkedList.prototype.removeLastNode = function(){
@@ -90,11 +89,8 @@ LinkedList.prototype.contains = function(){
 LinkedList.prototype.reverse = function(){
   var current = this.head;
   while(current){
-  // console.log("Before: ", current);
     var next = current.next;
-    current.next = current.prev;
-    current.prev = next;
-    // console.log("after: ", current);
+    current.next = current.prev; current.prev = next;
     current = next;
   }
   var temp = this.head;
@@ -106,22 +102,25 @@ LinkedList.prototype.reverse = function(){
 
 LinkedList.prototype.print = function(){
   var current = this.head;
-  console.log("LinkedList: ");
   while(current){
-    console.log(current.value);
     current = current.next;
   }
 };
 
+LinkedList.prototype.push = LinkedList.prototype.addToTail;
+LinkedList.prototype.pop = LinkedList.prototype.removeFromTail;
+
+
 module.exports = LinkedList;
 
-var l = new LinkedList();
-l.addToHead(3);
-l.addToTail(4);
-l.addToTail(2);
-l.removeFromHead();
-l.addToHead(1);
-l.print();
-l.reverse()
-l.print();
+// var l = new LinkedList();
+// l.addToHead(3);
+// l.addToTail(4);
+// l.addToTail(2);
+// l.removeFromHead();
+// l.addToHead(1);
+// l.print();
+// l.reverse()
+// l.print();
+
 
